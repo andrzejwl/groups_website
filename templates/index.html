@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+  <style>
+    .btn{
+      font-size: 2em;
+    }
+  </style>
+  <p class = 'big-header'> Groups </p>
+  <div class = 'flex-column'>
+    <a href='/login'><button class = 'btn btn-primary btn-lg' style = 'margin-bottom: 20px; width: 100%;'>Log in</button></a>
+    <a href='/register'><button class = 'btn btn-primary btn-lg' style = 'margin-bottom: 20px; width: 100%;'>Register</button></a>
+  </div>
+{% endblock %}

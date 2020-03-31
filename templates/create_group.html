@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Add a new group</title>
+    </head>
+    <body>
+        <h1>Create a new group</h1>
+
+        {% from 'includes/_formhelpers.html' import render_field %}
+
+        <form method = 'POST'>
+            {{render_field(form.subject, class_ = 'form-control')}}<br>
+            {{render_field(form.day, class_ = 'form-control')}}<br>
+            {{render_field(form.time, class_ = 'form-control')}}<br>
+
+            <p><input type = 'submit' value = 'Submit'></p>
+
+        <br><br>
+        <a href = '/adm_panel'>Go back to admin panel start page </a><br><br>
+        <a href = '/logout'>Log out</a>
+    </body>
+</html>

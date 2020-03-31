@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+  <link rel = 'stylesheet' href = '{{url_for("static", filename = "css/loginForm.css")}}'>
+  <p class = 'big-header'> Groups </p>
+  <div class="row">
+       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+         <div class="card card-signin my-5">
+           <div class="card-body">
+             <h5 class="card-title text-center">Log In</h5>
+             <form method = 'POST' class="form-signin">
+               <div class="form-label-group">
+                 <input type="text" id="inputEmail" name = 'username' class="form-control" placeholder="Email address" required autofocus>
+                 <label for="inputEmail">Username</label>
+               </div>
+
+               <div class="form-label-group">
+                 <input type="password" id="inputPassword"  name = 'password' class="form-control" placeholder="Password" required>
+                 <label for="inputPassword">Password</label>
+               </div>
+
+               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">LOG IN</button>
+             </form>
+
+             <hr class="my-4">
+             <a href = '{{url_for("register")}}'> Don't have an account? Sign up now! </a>
+           </div>
+         </div>
+       </div>
+   </div>
+
+{% endblock %}

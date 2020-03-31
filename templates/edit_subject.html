@@ -1,0 +1,129 @@
+{% extends 'layout.html' %}
+{% block title %}Edit {{name}}{% endblock %}
+{% block jscode %}
+    <script>
+    var fieldsCount = 1;
+        var index = {{size+1}};
+
+        function addField(){
+            var maxFields = 10;
+
+            if(fieldsCount <= maxFields){
+                fieldsCount++;
+
+                var div = document.getElementById('groups');
+                var options = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+
+
+                var selectList = document.createElement('select');
+                selectList.name = 'day[]';
+                selectList.id = 'select'+index.toString();
+                selectList.className = 'daySelect';
+                div.appendChild(selectList);
+
+                for(var i = 0; i<options.length; i++){
+                    var option = document.createElement('option');
+                    option.value = options[i];
+                    option.text = options[i];
+                    selectList.appendChild(option);
+                }
+
+                var inputField = document.createElement('input');
+                inputField.type = 'time';
+                inputField.name = 'time[]';
+                inputField.id = 'input'+index.toString();
+                inputField.className = 'time-inp';
+                inputField.style = 'margin-left: 5px;';
+                div.appendChild(inputField);
+
+                var hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = 'group_id[]';
+                hiddenField.value = 'new';
+                hiddenField.id = 'hidden'+index.toString();
+                div.appendChild(hiddenField);
+
+                var maxSizeField = document.createElement('input');
+                maxSizeField.type = 'number';
+                maxSizeField.className = 'time-inp';
+                maxSizeField.name = 'max[]';
+                maxSizeField.id = 'maxInput'+index.toString();
+                maxSizeField.style = 'width: 50px; margin-left: 5px; margin-right: 5px;';
+                div.appendChild(maxSizeField);
+
+                var removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.onclick = function() {removeField(this.id);};
+                removeBtn.innerHTML = '<img src = "{{url_for('static', filename = 'garbage.png')}}" alt="">';
+                removeBtn.id = 'removeBtn'+index.toString();
+                removeBtn.className = 'btn btn-warning';
+                div.appendChild(removeBtn);
+
+                var newLine = document.createElement('br');
+                newLine.id = 'br'+index.toString();
+                div.appendChild(newLine);
+                index++;
+            } else{
+                window.alert('Cannot add more than '+maxFields.toString()+' input fields at once');
+            }
+        }
+
+        function removeField(id){
+            var real_id = id.substring(9, id.length);
+
+            var selectField = document.getElementById('select'+real_id.toString());
+            var hiddenField = document.getElementById('hidden'+real_id.toString());
+            var inputField = document.getElementById('input'+real_id.toString());
+            var deleteBtn = document.getElementById('removeBtn'+real_id.toString());
+            var newLine = document.getElementById('br'+real_id.toString());
+            var maxSizeField = document.getElementById('maxInput'+real_id.toString());
+            var membersItalic = document.getElementById('current'+real_id.toString());
+
+            selectField.parentNode.removeChild(selectField);
+            hiddenField.parentNode.removeChild(hiddenField);
+            inputField.parentNode.removeChild(inputField);
+            deleteBtn.parentNode.removeChild(deleteBtn);
+            newLine.parentNode.removeChild(newLine);
+            maxSizeField.parentNode.removeChild(maxSizeField);
+            membersItalic.parentNode.removeChild(membersItalic);
+            fieldsCount--;
+        }</script>
+{% endblock %}
+{% block content %}
+    <h1>Edit {{name}}</h1>
+    <div class = 'all-settings' style = 'display: inline-block;'>
+      <form method = 'POST' style = "display: inline;">
+        <input type = 'submit' name = 'removeButton' value = 'Delete subject' onclick = 'return confirm("Are you sure?")' class = 'btn btn-danger'/>
+      </form>
+
+      <button type="button" onclick = 'addField()' class = 'btn btn-info'>Add a new group</button><br>
+
+      <form method = 'POST'>
+        <input name = 'desired_name' type = 'text' value = '{{name}}' class = 'subNameInp'>
+        <br>
+        <div id = 'groups'>
+          {% for group in groups %}
+          <select name = 'day[]' id = 'select{{loop.index}}' class = 'daySelect'>
+              {% for option in options -%}
+                  {% if option == group['day'] -%}
+                      <option value = '{{option}}' selected = 'selected'>{{option}}</option>
+                  {% else %}
+                      <option value = '{{option}}'>{{option}}</option>
+                  {%- endif %}
+              {%- endfor %}
+              </select>
+          <input type = 'time' name = 'time[]' id = 'input{{loop.index}}' value ='{{group["time"]}}' class = 'time-inp'>
+          <input type = 'hidden' name = 'group_id[]' id = 'hidden{{loop.index}}' value = {{group["g_id"]}}>
+          <input type = 'number' name = 'max[]' id = 'maxInput{{loop.index}}' value = "{{group['maxSize']}}" class = 'time-inp' style = 'width: 50px;'>
+          <button type="button" onclick = 'removeField(this.id)' id='removeBtn{{loop.index}}' class = 'btn btn-warning'><img src = "{{url_for('static', filename = 'garbage.png')}}" alt=""></button>
+          <i id = 'current{{loop.index}}'>(currently {{group['currentSize']}} member{% if group['currentSize'] != 1 %}s{% endif %}) </i>
+          <br id = 'br{{loop.index}}'>
+          {% endfor %}
+        </div>
+
+          <input type = 'submit' value = 'Save changes' class = 'btn btn-success'>
+        </form>
+    </div>
+  </div>
+{% endblock %}

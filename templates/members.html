@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block title %}Members{% endblock %}
+{% block content %}
+  <style>
+    .list-group-item:hover{
+      background-color: #a8a7a5;
+    }
+  </style>
+  <ul class = 'list-group'>
+  {% for member in membersInfo -%}
+    <li class = 'list-group-item list-group-item-secondary'>
+    {{member['name']}}
+    <form method = 'post' style = 'display: inline-block; float: right;'>
+      <input type = hidden name = 'userId' value = "{{member['id']}}"/>
+      <input type = 'submit' name = 'removeMember' value = 'Remove member' class = 'btn btn-danger' onclick = 'return confirm("Are you sure?")'/>
+    </form>
+    </li>
+  {%- endfor %}
+  </ul>
+{% endblock %}

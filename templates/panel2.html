@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block title %}Panel{% endblock %}
+{% block content %}
+<style media="screen">
+  body{
+    color: white;
+  }
+  .list-group-item:hover{
+    background-color: #a8a7a5;
+  }
+
+</style>
+    <div class = 'row'>
+      <div class = 'col-md-12' style = 'margin-bottom: 20px;'>
+      <ul class = 'list-group'>
+          {% for subject in gotGroup -%}
+              <li class = 'list-group-item list-group-item-secondary'>
+                <form method = 'post'>
+                  {{subject['name']}} at {{subject['day']}} {{subject['time']}}
+                  <input type = 'submit' name = 'removeButton' value = 'Abandon group' onclick = 'return confirm("Are you sure?")' class = 'btn btn-warning' style = 'float: right;' />
+                  <input type = 'hidden' name = 'remove' value = {{subject['group_id']}} />
+                </form>
+              </li>
+          {%- endfor %}
+      </ul>
+      </div>
+        <div class = 'w-100'></div>
+        {% for subject in noGroup -%}
+          <div class = 'col-md-3' style = 'background-color: #lightgrey; border-radius: 5px; flex-basis: 350px; word-wrap: break-word;'>
+              {{subject['name']}}, available groups: <br>
+              {% for group in subject['groups'] -%}
+                  {% if group['maxSize'] == group['currentSize'] -%}
+                      <b>{{group['day']}} at {{group['time']}}</b> <i> no spots available </i><br>
+                  {%- elif group['enabled'] -%}
+                      <form method = 'post'>
+                          <input type = 'hidden' value = '{{group["g_id"]}}' name = 'group_id'/>
+                          <input name = 'joinGroup' type = 'submit' value = "{{group['day']}} at {{group['time']}}" class = 'btn btn-info' style = 'margin-bottom: 5px;' /> {{group['maxSize'] - group['currentSize']}} spots available
+                      </form>
+                  {% else %}
+                      <u style = 'color: white;'>{{group['day']}} at {{group['time']}}</u> <i> signing up for this group currently disabled </i><br>
+                  {%- endif %}
+              {%- endfor %}
+            </div>
+        {%- endfor %}
+      </div>
+{% endblock %}

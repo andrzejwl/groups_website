@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %} New subject {% endblock %}
+{% block content %}
+<div class = 'all-settings' style = 'margin-top: 20px; padding-right: 25px;'>
+  <form method = 'POST'>
+    <div class = 'form-group'>
+      <label for = 'desired_name' style = 'margin-left: 10px;'>Name of new subject:</label>
+      <input type = 'text' name = 'desired_name' id = 'desired_name' style = 'width: 100%; margin: 10px; border: none; border-radius: 5px; padding: 5px;'>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg" style = 'margin-left: 10px; margin-bottom: 10px;'>Submit</button>
+  </form>
+</div>
+
+{% endblock %}

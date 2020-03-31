@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block title %}Panel{% endblock %}
+{% block content %}
+  <h1>Hello {{session['username']}}</h1>
+  {% if session['admin'] %}
+    <a href = '/adm_panel'> Go to admin panel </a>
+  {% endif %}
+  <p>List of all assigned groups</p>
+  <div class = 'row'>
+  {% for item in userGroups -%}
+    {% if item['group_id'] %}
+      {{item['name']}}<br>
+      at {{item['day']}} {{item['time']}}
+      <form method = 'post'>
+        <input type = 'submit' name = 'removeButton' value = 'Abandon group' onclick = 'return confirm("Are you sure?")' />
+        <input type = 'hidden' name = 'remove' value = {{item['group_id']}} />
+      </form>
+        <br>
+    {% else %}
+    
+      {% for notSel in notSelInf -%}
+        {% if notSel['subject_id'] == item['subject_id'] -%}
+        <div class = 'col-lg-3'>
+          {{item['name']}}, available groups: <br>
+          {% for group in notSel['groups'] -%}
+            {% if group['maxSize'] == group['currentSize'] -%}
+              <b>{{group['day']}} at {{group['time']}}</b> <i> no spots available </i><br>
+            {% elif group['enabled'] -%}
+              <form method = 'post'>
+                <input type = 'hidden' value = '{{group["group_id"]}}' name = 'group_id'/>
+                <input name = 'joinGroup' type = 'submit' value = "{{group['day']}} at {{group['time']}}"/> {{group['maxSize'] - group['currentSize']}} spots available
+              </form>
+            {% else -%}
+              <b>{{group['day']}} at {{group['time']}}</b> <i> signing up for this group currently disabled </i><br>
+            {%- endif %}
+          {%- endfor %}
+        </div>
+        {%- endif %}
+      {%- endfor %}
+      <br>
+    {%- endif %}
+    
+  {%- endfor %}
+</div>
+  <br>
+  <a href="/panel/select_groups">Select new groups</a><br>
+  <a href = '/logout'>Log out</a>
+{% endblock %}

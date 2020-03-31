@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <script type = 'text/javascript'>
+        var fieldsCount = 0;
+        function addField(){
+            var maxFields = 10;
+            
+            
+            var container = document.getElementById('container');
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'group';
+            
+            if(fieldsCount <= maxFields){
+                container.appendChild(input);
+                container.appendChild(document.createElement('br'));
+                fieldsCount++;
+            } else{
+                window.alert('Cannot add more than '+maxFields.toString()+' input fields at once');
+            }
+        }
+    </script>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit subject</title>
+    </head>
+    <body>
+        <h1>Edit {{name}}</h1>
+        {% from 'includes/_formhelpers.html' import render_field %}
+        
+        <form method = 'POST'>
+        {% for group in groups %}
+            <select name = 'day[]'>
+                {% for option in options %}
+                    {% if option == group['day'] %}
+                        <option value = '{{option}}' selected = 'selected'>{{option}}</option>
+                    {% else %}
+                        <option value = '{{option}}'>{{option}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            <input type = 'text' name = 'time[]' value ='{{group["time"]}}'>
+            <br>
+        {% endfor %}
+        <br>
+        <input type = 'submit' value = 'SUBMIT'>
+        </form>
+        
+        <button onclick = 'addField()'>Add a new group</button><br>
+        <div id = 'container'/><br>
+
+    </body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <title>Select groups</title>
+    </head>
+    <body>
+        <h1>Select groups from a list</h1><br>
+
+        <form method = 'POST'>
+        {% for subject in subj_list %}
+        {{subject['name']}} <select name = 'group[]'> {% for group in subjects[subject['name']]['groups'] %}
+            <option value = {{group['g_id']}}{% if group['selected'] %} selected = 'selected' {% endif %}>{{group['day']}} {{group['time']}}</option>
+            {% endfor %}
+        </select><br>
+        {% endfor %}
+        <input type = 'submit' value = 'SAVE'>
+        </form><br>
+        <a href = '/panel'>Go back to panel start page </a><br>
+        <a href = '/logout'>Log out</a>
+    </body>
+</html>

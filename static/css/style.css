@@ -1,0 +1,222 @@
+body {
+    padding-top: 65px;
+    font-family: sans-serif !important;
+    background: gray !important;
+}
+#container{
+  min-height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.big-header{
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 5em;
+  color: white;
+  letter-spacing: -2px;
+  border-bottom: 2px solid white;
+  text-transform: uppercase;
+}
+
+.flex-column{
+  margin: 100px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.all-settings{
+  padding: 10px;
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+
+.daySelect{
+  /* crossbrowser support */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+
+  padding: 3px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: none;
+  background: url(select.png) no-repeat 95% center;
+  background-color: #e3e3e3;
+}
+
+.time-inp{
+  background-color: #e3e3e3;
+  border-radius: 3px;
+  border: none;
+  padding: 5px;
+}
+
+
+.indexNumber{
+  float: right;
+}
+
+.flex-subjects{
+  display: flex;
+  flex-direction: column;
+}
+
+.list-group a:hover{
+  text-decoration: none;
+}
+
+.dropdown-item:hover{
+  background-color: lightgrey !important;
+}
+
+.loginForm{
+  width:300px;
+  max-width:100%;
+  margin:50px auto;
+}
+
+.loginInput{
+  width: 100%;
+  /* background-color: grey; */
+  color: grey;
+  border: lightgrey solid 2px;
+  border-radius: 5px;
+}
+
+.col-md-3, col-lg-3{
+  position: relative;
+  background-color: #757575;
+  margin: 5px;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+.row {
+  position: absolute;
+  left:0px;
+  right:0px;
+  padding: 20px;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: space-evenly;
+  /* Adding for cross browser support */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.enAllBtn{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.disAllBtn{
+  background-color: #eb5c52; /* red */
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+/* not used
+  .enBtn{
+  background-color: #88b895;
+  border: none;
+  color: white;
+  float:right;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px;
+}
+.disBtn{
+  background-color: #b89784;
+  border: none;
+  color: white;
+  float:right;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: inline-block;
+  padding: 5px;
+} */
+
+.group{
+  padding: 10px;
+  background-color: #4697fa;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.groupOptions{
+  margin-bottom: 5px;
+}
+
+.subjectName{
+  font-size: 20px;
+  color: white;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.optionsBtn{
+  color: white;
+  background-color: #a9bad4;
+  border: none;
+  border-radius: 5px;
+}
+/* not used
+.membersBtn{
+  color: white;
+  background-color: #ced4d6;
+  border: none;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-top: 5px;
+  padding: 5px;
+  display: inline-block;
+} */
+
+.delGroupBtn{
+  background-color: red;
+  font-style: bold;
+  border-radius: 10px;
+  border: none;
+}
+
+.subNameInp{
+  background-color: #e3e3e3;
+  border: 2px solid #428bca;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.groupSizeInp{
+  background-color: lightgrey;
+  width: 50px;
+}
+
+.timeInp{
+  background-color: lightgrey;
+}

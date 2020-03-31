@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{% block title %}Admin panel{% endblock %}
+{% block content %}
+
+  <style>
+    .col-md-3{
+      border-radius: 5px;
+    }
+  </style>
+
+  <div class = 'row' style = 'justify-content: space-evenly;'>
+    {% for subject in subj_list %}
+      <div class = 'col-md-3'>
+        <div class = 'subjectName'>
+          <b>{{subject.name}}</b>
+        </div>
+
+        <div class="list-group">
+          <a href = '/adm_panel/edit_subject/{{subject.id}}'>
+            <button type="button" class="list-group-item list-group-item-action list-group-item-secondary">Edit subject</button>
+          </a>
+
+          <a href = '/adm_panel/xlsxdump/{{subject.id}}'>
+            <button type="button" class="list-group-item list-group-item-action list-group-item-secondary">Dump groups to .xlsx</button>
+          </a>
+
+          <form method = 'POST'>
+            <input type = 'hidden' value = '{{subject.id}}' name = 'disAll'>
+            <button type="submit" class="list-group-item list-group-item-action list-group-item-danger">Disable signing up for all groups</button>
+          </form>
+
+          <form method = 'POST'>
+            <input type = 'hidden' value = '{{subject.id}}' name = 'enAll'>
+            <button type="submit" class="list-group-item list-group-item-action list-group-item-success">Enable signing up for all groups</button>
+          </form>
+
+        </div>
+
+        <p class = 'subjectName'><i> Groups: </i> </p>
+        {% if subject.groups|length == 0 %}
+          <i> No groups have been created for this subject </i>
+        {% else %}
+          {% for group in subject.groups %}
+          <div class = 'group'>
+
+            <span class = 'group-info'> {{group['day']}} at {{group['time']}} - {{group['currentSize']}}/{{group['maxSize']}}</span><br>
+
+            {% if not group['currentSize'] == 0 %}
+              <form action = 'adm_panel/members/{{group["g_id"]}}' style = 'float: left;'>
+                <input type = "submit" value = 'see members' class = 'btn btn-light'/>
+              </form>
+            {% else %}
+              <button class = 'btn btn-light' disabled> see members </button>
+            {% endif %}
+
+            {% if not group['enabled'] %}
+              <form method = 'POST' style = 'float: right; margin-right: 20px;'>
+                <input type = 'hidden' value = "{{group['g_id']}}" name = 'enId'>
+                <input type = 'submit' name = 'enableBtn' value = 'ENABLE' class = 'btn btn-success'>
+              </form>
+            {% else %}
+            <form method = 'POST' style = 'float: right; margin-right: 20px;'>
+              <input type = 'hidden' value = "{{group['g_id']}}" name = 'disId'>
+              <input type = 'submit' name = 'disableBtn' value = 'DISABLE' class = 'btn btn-warning'>
+            </form>
+            {% endif %}
+
+            {% if not group['enabled'] %}
+              <br><br>
+              <span class = 'info'> <img src = "{{url_for('static', filename = 'info.png')}}" alt=""> signing up for this group is currently disabled </span>
+            {% endif %}
+            <div style = 'clear: both;'></div>
+
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <br>
+{% endblock %}
