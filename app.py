@@ -28,9 +28,9 @@ class EditSubjectForm(Form):
 def db_connection():
     return pymysql.connect(
         host = 'localhost',
-        user = 'andrzej',
-        password = 'pass',
-        db = 'groups',
+        user = 'USERNAME',
+        password = 'PASSWORD',
+        db = 'DB_NAME',
         cursorclass = pymysql.cursors.DictCursor
     )
 
